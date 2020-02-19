@@ -1,0 +1,49 @@
+{
+	"name": "instaFeed",
+	"lowCaseName": "instafeed",
+	"description": "Import Instagram Images",
+	"author": "Jan Dähne",
+	"version": "1.0.0-pl",
+	"package": {
+		"elements": {
+			"chunks": [{
+                "name": "instaFeedTpl",
+                "file": "instafeedtpl.chunk.tpl"
+            }],
+            "snippets": [{
+                "name": "instaFeed",
+                "file": "instafeed.snippet.php"
+            }]
+		},
+	    "systemSettings": [
+	    	{
+				"key": "usernames",
+				"area": "system",
+				"value": ""
+			},
+			{
+				"key": "image_path",
+				"area": "system",
+				"value": "instafeed/images/"
+			}
+		]
+	},
+	"database": {
+		"tables": [
+			"InstaFeedItem"
+		]
+	},
+	"dependencies": [{
+		"name": "php",
+		"version": ">=5.6"
+	},
+	{
+		"name": "modx",
+		"version": ">=2.6"
+	}],
+	"build": {
+		"readme": "docs/readme.md",
+		"license": "docs/license.md",
+		"changelog": "docs/changelog.md"
+	}
+}

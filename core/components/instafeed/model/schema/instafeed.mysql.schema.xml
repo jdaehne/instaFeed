@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<model package="instafeed" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" version="1.1">
+    <object class="InstaFeedItem" table="instafeed_items" extends="xPDOSimpleObject">
+        <field key="key" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
+        <field key="user_name" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
+        <field key="user_id" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
+        <field key="type" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
+        <field key="image" dbtype="text" phptype="string" null="true" />
+        <field key="url" dbtype="text" phptype="string" null="true" />
+        <field key="content" dbtype="text" phptype="string" null="true" />
+        <field key="date" dbtype="timestamp" phptype="timestamp" null="false" />
+        <field key="properties" dbtype="text" phptype="string" null="true" />
+        <field key="deleted" dbtype="int" precision="1" attributes="unsigned" phptype="integer" null="false" default="0"/>
+        <field key="published" dbtype="int" precision="1" attributes="unsigned" phptype="integer" null="false" default="0"/>
+    </object>
+</model>
