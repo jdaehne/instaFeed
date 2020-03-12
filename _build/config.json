@@ -3,7 +3,7 @@
 	"lowCaseName": "instafeed",
 	"description": "Import Instagram Images",
 	"author": "Jan Dähne",
-	"version": "1.0.0-pl",
+	"version": "1.0.1-pl",
 	"package": {
 		"elements": {
 			"chunks": [{
@@ -25,6 +25,17 @@
 				"key": "image_path",
 				"area": "system",
 				"value": "instafeed/images/"
+			},
+			{
+				"key": "remote",
+				"area": "system",
+				"value": false,
+				"type": "combo-boolean"
+			},
+			{
+				"key": "remote_key",
+				"area": "system",
+				"value": ""
 			}
 		]
 	},

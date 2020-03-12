@@ -19,6 +19,8 @@ class InstaFeed {
         // config
         $this->usernames = explode(',', $this->modx->getOption('instafeed.usernames'));
         $this->image_path = $this->modx->getOption('instafeed.image_path');
+        $this->remote = $this->modx->getOption('instafeed.remote');
+        $this->remote_key = $this->modx->getOption('instafeed.remote_key');
 
         // add addPackage
         $basePath = $this->modx->getOption('instafeed.core_path',$config,$this->modx->getOption('core_path').'components/instafeed/');
@@ -163,6 +165,19 @@ class InstaFeed {
     // get items from instagram
     private function getItemsFromInstagram($username)
     {
+
+        // use remote server instead of instagram directly
+        if ($this->remote == true) {
+            $media_json = file_get_contents('https://instafeed.quadro-hosting.de?username=' . $username . '&auth=' . $this->remote_key);
+            $media = json_decode($media_json, true);
+
+            foreach ($media as $key => $item) {
+                $media[$key]['content'] = $this->removeEmoji($item['content']);
+            }
+
+            return $media;
+        }
+
 
         $insta_source = file_get_contents('http://instagram.com/' . $username);
     	$shards = explode('window._sharedData = ', $insta_source);
