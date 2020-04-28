@@ -133,7 +133,9 @@ class InstaFeed {
             // check if item already exists
             if ($existingItem = $this->modx->getObject('InstaFeedItem', array('key' => $item['key']))) {
                 // Update properties of existing item
-                $existingItem->set('properties', json_encode(array_merge(json_decode($existingItem->get('properties'), true), $item['properties'])));
+                $properties = json_decode($existingItem->get('properties'), true);
+                $properties = (is_array($properties)) ? $properties : array();
+                $existingItem->set('properties', json_encode(array_merge($properties, $item['properties'])));
                 $existingItem->save();
                 continue;
             }
