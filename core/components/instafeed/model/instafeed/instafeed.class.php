@@ -21,6 +21,7 @@ class InstaFeed {
         $this->image_path = $this->modx->getOption('instafeed.image_path');
         $this->remote = $this->modx->getOption('instafeed.remote');
         $this->remote_key = $this->modx->getOption('instafeed.remote_key');
+        $this->published = $this->modx->getOption('instafeed.published');
 
         // add addPackage
         $basePath = $this->modx->getOption('instafeed.core_path',$config,$this->modx->getOption('core_path').'components/instafeed/');
@@ -130,7 +131,10 @@ class InstaFeed {
         foreach ($items as $item) {
 
             // check if item already exists
-            if ($this->modx->getObject('InstaFeedItem', array('key' => $item['key']))) {
+            if ($existingItem = $this->modx->getObject('InstaFeedItem', array('key' => $item['key']))) {
+                // Update properties of existing item
+                $existingItem->set('properties', json_encode(array_merge(json_decode($existingItem->get('properties'), true), $item['properties'])));
+                $existingItem->save();
                 continue;
             }
 
@@ -150,13 +154,15 @@ class InstaFeed {
             $post->set('url', $item['url']);
             $post->set('content', $item['content']);
             $post->set('date', $item['date']);
-            $post->set('properties', $item['properties']);
-            $post->set('published', true);
+            $post->set('properties', json_encode($item['properties']));
+            $post->set('published', $this->published);
             $post->save();
 
             $imports[] = $item;
         }
 
+        // clear cache
+        $this->modx->cacheManager->delete('instaFeed.instafeed');
 
         return $imports;
     }
@@ -199,7 +205,10 @@ class InstaFeed {
                 'date' => $item['node']['taken_at_timestamp'],
                 'content' => $this->removeEmoji($item['node']['edge_media_to_caption']['edges']['0']['node']['text']),
                 'dimensions' => $item['node']['dimensions'],
-                'properties' => '',
+                'properties' => array(
+                    'likes' => $item['node']['edge_liked_by']['count'],
+                    'comments' => $item['node']['edge_media_to_comment']['count'],
+                ),
             );
         }
 

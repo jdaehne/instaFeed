@@ -13,3 +13,5 @@ $_lang['setting_instafeed.remote'] = 'Remote Server';
 $_lang['setting_instafeed.remote_desc'] = 'Remote Server verwenden?';
 $_lang['setting_instafeed.remote_key'] = 'Remote Server Key';
 $_lang['setting_instafeed.remote_key_desc'] = 'Remote Server Auth-Schlüssel.';
+$_lang['setting_instafeed.published'] = 'Neue Beiträge veröffentlichen';
+$_lang['setting_instafeed.published_desc'] = 'Neu Beiträge automatisch veröffentlichen?';
